@@ -1,0 +1,10 @@
+npx playwright test tests/ClientApp.spec.js --headed
+
+
+npx playwright test --headed
+
+
+wait page.pause(); causes the test to pause and you can then see what you have selected
+
+
+npx playwright codegen http://google.com
