@@ -2,10 +2,11 @@ const {test, expect} = require('@playwright/test');
 
 test('Browser Context  Playwrigth test', async ({page})=>
 {
+  const email = "anshika@gmail.com"
     const productName = 'Zara Coat 4';
     const products = page.locator(".card-body");
     await page.goto("http://www.rahulshettyacademy.com/client/#/auth/login");
-    await page.locator("#userEmail").fill("anshika@gmail.com");
+    await page.locator("#userEmail").fill(email);
     await page.locator("#userPassword").fill("Iamking@000");
     await page.locator("[value='Login']").click();
     await page.locator(".card-body b").allTextContents();
@@ -27,7 +28,7 @@ test('Browser Context  Playwrigth test', async ({page})=>
     }
     await page.pause()
     await page.locator("[routerlink*='cart']").click();
-    await page.locator("div li").first.waitFor();
+    await page.locator("div li").first.waitFor;
     const bool = page.locator("h3:has-text('Zara Coat 4')").isVisible();
     expect(bool).toBeTruthy
     await page.locator("text=Checkout").click();
@@ -40,10 +41,19 @@ test('Browser Context  Playwrigth test', async ({page})=>
     {
       const text = await dropdown.locator("button").nth(i).textContent();
       if (text.trim === "India")
+      {
         await dropdown.locator("button").nth(i).click();
       break;
+      }
     }
     await page.pause()
+    expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+    await page.locator(".action__submit").click();
+    await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+    const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+    console.log(orderId);
+    page.locator("button[routerlink*='myorders']").click();
+
 });
 
 
